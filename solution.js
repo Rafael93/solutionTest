@@ -16,7 +16,7 @@ let costoPorAño = 0;
 
 //Encontrar el numero menor y el segundo menor que esten en la misma unidad para saber cuales son los tubos que primero van a morir
 const encontrarTubos = () => {
-  //reseteo del valor o sino cuando haya dos tuvos muertos (0) ya no entrará en mi condicion y no guardara el nuevo
+  //reseteo del valor o sino cuando haya dos tubos muertos (0) ya no entrará en mi condicion y no guardara el nuevo
   menor = Infinity;
   segundoMenor = Infinity;
   //let unidad = 0; usé esta variable para las pruebas donde consoleaba la unidad para saber si estaba correcto los datos que arrojaba
