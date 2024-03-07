@@ -1,4 +1,5 @@
 Problem:
+[note]
 In a University, there is a classroom, in that classroom, there are 4 fluorescent tube units, each
 unit contains 4 fluorescent tubes.
 The classroom is used 15 hours a day, 5 times a week, 9 months a year.
