@@ -1,4 +1,3 @@
-[!note]
 Problem:
 In a University, there is a classroom, in that classroom, there are 4 fluorescent tube units, each
 unit contains 4 fluorescent tubes.
