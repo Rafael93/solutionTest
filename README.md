@@ -12,4 +12,17 @@ The algorithm should print:
 1. How many fluorescent tubes were broken in 1 year in that classroom?
 2. How much money do fluorescent tubes cost the University per year per classroom?
 
-Solution: this is
+Solution: this is a simulation algorithm that shows the values in response to the problem questions
+
+Try it!
+
+Using your IDE integrated console
+1- Open the file with your IDE
+2- Open the console
+3- Locate the file
+4- type node solution.js and execute
+
+Using the OS console
+1-Open your console
+2-locate the file
+3-type node soluction.js and execute
