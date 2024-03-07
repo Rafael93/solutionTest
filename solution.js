@@ -1,99 +1,84 @@
-const totalFocos = [
+//Defino la cantidad de horas de los tubos con los que incia el año el salón de clase
+const totalTubos = [
   [200, 150, 141, 170], //561
   [150, 180, 160, 120], //610
   [100, 101, 130, 150], //491
   [160, 102, 100, 200], //632
 ];
+
 //Variables Globales
 let menor = Infinity;
 let segundoMenor = Infinity;
-let cantidadFocosReemplazados = 0;
+let cantidadDeTubosReemplazados = 0;
 let horasPorAño = 2700;
+let horasConsumidas = 0;
+let costoPorAño = 0;
 
-//Encontrar el numero menor y el segundo menor que esten en la misma unidad
-const encontrarMenores = () => {
+//Encontrar el numero menor y el segundo menor que esten en la misma unidad para saber cuales son los tubos que primero van a morir
+const encontrarTubos = () => {
+  //reseteo del valor o sino cuando haya dos tuvos muertos (0) ya no entrará en mi condicion y no guardara el nuevo
   menor = Infinity;
   segundoMenor = Infinity;
-  let unidad = 0;
-  for (let i = 0; i < totalFocos.length; i++) {
-    totalFocos[i].sort();
-    for (let j = 0; j < totalFocos[i].length - 2; j++) {
-      if (totalFocos[i][j] < menor && totalFocos[i][j + 1] < segundoMenor) {
-        menor = totalFocos[i][j];
-        segundoMenor = totalFocos[i][j + 1];
-        unidad = i;
+  //let unidad = 0; usé esta variable para las pruebas donde consoleaba la unidad para saber si estaba correcto los datos que arrojaba
+  for (let i = 0; i < totalTubos.length; i++) {
+    totalTubos[i].sort();
+    //recorrer numero por numero para hallar el menor
+    for (let j = 0; j < totalTubos[i].length - 2; j++) {
+      if (totalTubos[i][j] < menor && totalTubos[i][j + 1] < segundoMenor) {
+        menor = totalTubos[i][j];
+        segundoMenor = totalTubos[i][j + 1]; //esto no me cierra aun porque si no se llega a ordenar correctamente con .sort() todo va a estar mal
+        //unidad = i;
       }
     }
   }
-  console.log(
-    `El menor es: ${menor} y el segundo menor es: ${segundoMenor} y estan en la unidad ${
-      unidad + 1
-    }`
-  );
+  //console.log(`El menor es: ${menor} y el segundo menor es: ${segundoMenor} y estan en la unidad ${unidad + 1}`); Esto usaba en las simulaciones para saber si estaba encontrando correctamente los numeros menores
 };
 
 //Consumir las horas menores y si la hora menor es 0 se usará el segundo menor
-let horasConsumidas = 0;
 const consumirHoras = (horaMasBaja, segundaHoraMasBaja) => {
-  for (let i = 0; i < totalFocos.length; i++) {
+  for (let i = 0; i < totalTubos.length; i++) {
     //recorro numero por numero
-    for (let j = 0; j < totalFocos[i].length; j++) {
-      //Y pregunto si el numero - la hora a consumir es mayor o igual a 0 porque no tiene sentido numeros negativos y si la hora es diferente que 0
-      if (totalFocos[i][j] - horaMasBaja >= 0 && horaMasBaja !== 0) {
+    for (let j = 0; j < totalTubos[i].length; j++) {
+      //Y pregunto si el numero menos la hora a consumir es mayor o igual a 0 porque no tiene sentido numeros negativos y si la hora es diferente que 0
+      if (totalTubos[i][j] - horaMasBaja >= 0 && horaMasBaja !== 0) {
         //si pasa quere decir que el numero mas bajo no es 0 y entonces resto por el numero menor
-        totalFocos[i][j] = totalFocos[i][j] - horaMasBaja;
-        if (i === totalFocos.length - 1 && j === totalFocos[i].length - 1) {
+        totalTubos[i][j] = totalTubos[i][j] - horaMasBaja;
+        //cuando este en la ultima vuelta recien voy a guardar la hora consumida, es lo que se me ocurrio creo que se puede buscar una alternativa mejor
+        if (i === totalTubos.length - 1 && j === totalTubos[i].length - 1) {
           horasConsumidas += horaMasBaja;
         }
         //En el caso que el numero mas bajo sea 0 vamos usar el segundo menor que sería el segundo tubo a quemarse para cambiar toda la unidad
       } else if (
-        totalFocos[i][j] - segundaHoraMasBaja >= 0 &&
+        totalTubos[i][j] - segundaHoraMasBaja >= 0 &&
         segundaHoraMasBaja !== 0
       ) {
-        totalFocos[i][j] = totalFocos[i][j] - segundaHoraMasBaja;
-        if (i === totalFocos.length - 1 && j === totalFocos[i].length - 1) {
+        totalTubos[i][j] = totalTubos[i][j] - segundaHoraMasBaja;
+        if (i === totalTubos.length - 1 && j === totalTubos[i].length - 1) {
           horasConsumidas += segundaHoraMasBaja;
         }
-      } else {
-        console.log(`acabo de entrar en reemplazar tubos`);
-        reemplazarTubos();
+      }
+      //Cuando hay dos 0 dentro de la unidad voy a reemplazar todos los valores de la fila con la funcion rand()
+      else if (totalTubos[i][j] === 0 && totalTubos[i][j + 1] === 0) {
+        totalTubos[i] = totalTubos[i].map(() => rand());
+        //aqui guardo la canitdad de tubos para el calculo final
+        cantidadDeTubosReemplazados += 4;
       }
     }
   }
-  console.log(`horas consumidas: ${horasConsumidas}`);
-  console.log(totalFocos);
+  //console.log(`horas consumidas: ${horasConsumidas}`);
 };
 
-//funcion que genera la hora de vida de los tubos
+//funcion que genera la horas de vida de los tubos
 const rand = () => {
   return Math.floor(Math.random() * 101) + 100;
 };
 
-//Reemplazar tubos busca 2 tubos muertos con horas de vida 0 en la misma unidad para cambiarlos por 4 nuevos
-const reemplazarTubos = () => {
-  let contador = 0;
-  /* for (let i = 0; i < totalFocos.length; i++) {
-    totalFocos[i].sort();
-    //evaluar fila
-    for (let j = 0; j < totalFocos[i].length; j++) {
-      if (totalFocos[i][j] === 0) {
-        contador++;
-      }
-      if (contador === 2) {
-        //detener el recorrido
-        j = totalFocos[i].length;
-        totalFocos[i] = totalFocos[i].map(() => rand());
-        cantidadFocosReemplazados += 4;
-      }
-    }
-    //termina la fila
-    contador = 0;
-  }
-  console.log(totalFocos); */
-};
+//Realiza la simulacion hasta llegar a las 2700, pasa de 2700 aún tengo que ver que hacer para que sea 2700 clavado
+while (horasConsumidas <= horasPorAño) {
+  encontrarTubos();
+  consumirHoras(menor, segundoMenor);
+}
 
-console.log(totalFocos);
-encontrarMenores();
-consumirHoras(menor, segundoMenor);
-encontrarMenores();
-consumirHoras(menor, segundoMenor);
+console.log(`Cantidad de Tubos reemplazados: ${cantidadDeTubosReemplazados}`);
+costoPorAño = cantidadDeTubosReemplazados * 7;
+console.log(`Costo por año: ${costoPorAño} usd`);
