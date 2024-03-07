@@ -1,9 +1,9 @@
 //Defino la cantidad de horas de los tubos con los que incia el año el salón de clase
 const totalTubos = [
-  [200, 150, 141, 170], //561
-  [150, 180, 160, 120], //610
-  [100, 101, 130, 150], //491
-  [160, 102, 100, 200], //632
+  [200, 150, 141, 170],
+  [150, 180, 160, 120],
+  [100, 101, 130, 150],
+  [160, 102, 100, 200],
 ];
 
 //Variables Globales
