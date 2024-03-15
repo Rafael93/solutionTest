@@ -19,7 +19,6 @@ const initializeUnits = () => {
     }
   }
   tubesReplaced += 4;
-  console.log(tubesReplaced);
 };
 
 const consumeHours = () => {
@@ -27,7 +26,6 @@ const consumeHours = () => {
     unit.forEach((tube, i) => {
       if (unit[i] > 0) {
         unit[i] = tube - 1;
-        hoursConsumed++;
       } else if (unit[i] === 0) {
         unitsBroken++;
         if (unitsBroken >= 2) {
@@ -36,16 +34,7 @@ const consumeHours = () => {
       }
     })
   );
-  console.log(units);
-};
-
-const replaceTubes = (unit) => {
-  unit.forEach((tube, i) => {
-    let numRand = rand();
-    unit[i] = numRand;
-  });
-  tubesReplaced += 4;
-  console.log(tubesReplaced);
+  hoursConsumed++;
 };
 
 const verifieUnit = (unit) => {
@@ -60,14 +49,22 @@ const verifieUnit = (unit) => {
   });
 };
 
+const replaceTubes = (unit) => {
+  unit.forEach((tube, i) => {
+    let numRand = rand();
+    unit[i] = numRand;
+  });
+  tubesReplaced += 4;
+};
+
 const runSimulator = () => {
   initializeUnits();
-  while (hoursConsumed <= hoursUsedPerYear) {
+  while (hoursConsumed < hoursUsedPerYear) {
     consumeHours();
   }
   costPerYear = tubesReplaced * 7;
-  console.log(hoursConsumed);
   console.log(`La cantidad de tubos reemplazados son ${tubesReplaced}`);
   console.log(`El costo por año es de ${costPerYear} USD`);
 };
+
 runSimulator();
