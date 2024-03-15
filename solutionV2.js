@@ -6,12 +6,12 @@ let unitsBroken = 0;
 let tubesReplaced = 0;
 let costPerYear = 0;
 
-//rand funtcion returns a number betwenn 100 and 200
+//rand function returns a number between 100 and 200
 const rand = () => {
   return Math.floor(Math.random() * 101) + 100;
 };
 
-//initializeUnits function fullfill the units array with 4 arrays with 4 random numbers inside
+//initializeUnits function fulfil the units array with 4 arrays with 4 random numbers inside
 const initializeUnits = () => {
   for (let x = 0; x < 4; x++) {
     units.push([]);
@@ -31,10 +31,10 @@ const consumeHours = () => {
         //if the tube lifespan value is greater than 0 then the value is decreased by 1
         unit[i] = tube - 1;
       } else if (unit[i] === 0) {
-        //if it is equal to 0 the units broken variable increase by 1 meaning we have a broken tube
+        //if it is equal to 0 the units broken variable increases by 1 meaning we have a broken tube
         unitsBroken++;
         if (unitsBroken >= 2) {
-          //And if the counter is equal to 2 or greater it means we have to verify if we have to broken tubes in a single unit
+          //And if the counter is equal to 2 or greater it means we have to verify if we have two broken tubes in a single unit
           verifyUnit(unit);
         }
       }
@@ -43,15 +43,15 @@ const consumeHours = () => {
   hoursConsumed++; //Counting the hour consumed from all the tubes
 };
 
-//VerifyUnit function checks if there are 2 o more broken tuben in the same unit
+//VerifyUnit function checks if there are 2 or more broken tubes in the same unit
 const verifyUnit = (unit) => {
   let count = 0;
   unit.forEach((tube) => {
     if (tube === 0) {
-      //if the unit have a tube lifespan iqual to 0 the counter variable increase
+      //if the unit has a tube lifespan equal to 0 the counter variable increase
       count++;
       if (count >= 2) {
-        //Right after increase the the counter we checked if there is 2 or more tubes broken
+        //Right after increasing the counter we checked if there are 2 or more tubes broken
         replaceTubes(unit); //If it is true then we proceed to replace the 4 values in the unit.
       }
     }
@@ -76,7 +76,7 @@ const runSimulator = () => {
   }
   costPerYear = tubesReplaced * 7; //Calculating the cost per year using the tube's price
 
-  //Print the result in the console
+  //Print the results in the console
   console.log(`La cantidad de tubos reemplazados son ${tubesReplaced}`);
   console.log(`El costo por año es de ${costPerYear} USD`);
 };
